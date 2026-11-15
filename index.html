@@ -4,9 +4,18 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#11191c"><title>ARES V6 · Mars route explorer</title>
 <link rel="stylesheet" href="style.css"><script defer src="bridge.js?v=6.1.1"></script><script defer src="app.js?v=6.1.1"></script>
+<style>
+.ares-brand-actions{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.ares-demo-link{display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid #e0a57a9c;border-radius:6px;background:#31281f88;color:#efbd96;text-decoration:none;font:700 10px ui-monospace,Consolas,monospace;letter-spacing:.13em;white-space:nowrap;transition:background .2s,border-color .2s,transform .2s}
+.ares-demo-link span{font-size:15px;font-weight:400;line-height:1}
+.ares-demo-link:hover{background:#4b382b;border-color:#f4c398;transform:translateY(-1px)}
+.ares-demo-link:focus-visible{outline:2px solid #f1c19e;outline-offset:3px}
+@media(max-width:720px){.ares-brand-actions{gap:10px}.ares-demo-link{padding:7px 8px;font-size:9px;gap:4px}.ares-demo-link span{font-size:12px}}
+@media(max-width:380px){.ares-brand-actions{gap:7px}.ares-demo-link{padding:6px 7px;font-size:8px}.brand strong{font-size:18px}}
+</style>
 </head>
 <body>
-<header class="topbar"><a class="brand" href="./" aria-label="ARES home"><span class="brandmark">A</span><strong>ARES<span>MARS ROUTE EXPLORER</span></strong></a><div class="mission"><span class="live-dot"></span> NOCTIS LABYRINTHUS <span class="divider">/</span> <span id="extent">GLOBAL MARS · REGIONAL ROUTING</span></div><button id="aboutBtn" class="subtle">Data & methods <span>↗</span></button></header>
+<header class="topbar"><div class="ares-brand-actions"><a class="brand" href="./" aria-label="ARES home"><span class="brandmark">A</span><strong>ARES<span>MARS ROUTE EXPLORER</span></strong></a><a class="ares-demo-link" href="./DEMO.html" aria-label="Open the ARES interactive presentation">DEMO <span aria-hidden="true">↗</span></a></div><div class="mission"><span class="live-dot"></span> NOCTIS LABYRINTHUS <span class="divider">/</span> <span id="extent">GLOBAL MARS · REGIONAL ROUTING</span></div><button id="aboutBtn" class="subtle">Data & methods <span>↗</span></button></header>
 <main>
 <aside class="sidebar">
 <div class="intro"><span class="eyebrow">THE NEXT WAY FORWARD</span><h1>Find your path<br>on Mars.</h1><p>Explore the terrain. Compare the tradeoffs.</p></div>
