@@ -1,0 +1,57 @@
+name: Publish ARES V6 to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out ARES project
+        uses: actions/checkout@v4
+      - name: Set up Python (download script only, no Python runtime on Pages)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate bundled Mars data and scripts
+        run: |
+          python scripts/validate_assets.py
+          python -m py_compile planner.py
+          node --check app.js
+          node --check bridge.js
+      - name: Download original global NASA MOLA MEGDR products
+        run: python scripts/fetch_mola.py
+      - name: Verify the global map file will be published
+        run: |
+          if [ ! -f mola_global_4ppd.img ]; then
+            echo "::error::Global Mars elevation is missing. NASA 4 ppd download failed; cannot publish a working global map."
+            exit 1
+          fi
+          test "$(stat -c %s mola_global_4ppd.img)" -eq 2073600 || exit 1
+          if [ -f mola_global_16ppd.img ]; then
+            test "$(stat -c %s mola_global_16ppd.img)" -eq 33177600 || exit 1
+          fi
+          echo "NASA global terrain ready for publication."
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
